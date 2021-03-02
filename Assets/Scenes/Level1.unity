@@ -1337,7 +1337,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c03333d578a5da741adcb0d202b6c75a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1 &992059371 stripped
+--- !u!1 &1040366741 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6037563386957621959, guid: 4d7dd5f8e3435f34e805b169ab8170ad, type: 3}
   m_PrefabInstance: {fileID: 6037563385984439890}
@@ -2435,11 +2435,7 @@ PrefabInstance:
     - target: {fileID: 4068541310108834537, guid: 2391b2d8376adc04c89749a8642a2308, type: 3}
       propertyPath: finishLevelUI
       value: 
-      objectReference: {fileID: 992059371}
-    - target: {fileID: 4068541310108834537, guid: 2391b2d8376adc04c89749a8642a2308, type: 3}
-      propertyPath: nextLevelSceneID
-      value: 1
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1040366741}
     - target: {fileID: 4068541310108834541, guid: 2391b2d8376adc04c89749a8642a2308, type: 3}
       propertyPath: m_Name
       value: ExitLevel
