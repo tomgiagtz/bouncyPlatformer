@@ -16,6 +16,7 @@ public class CharController : MonoBehaviour
     public bool isGrounded, isFrontTouching, isSliding;
 
     public LayerMask groundLayers, frontLayers;
+    private Vector3 spawnPoint;
 
     Vector2 areaTopRight;
     Vector2 areaLowerLeft;
@@ -25,6 +26,7 @@ public class CharController : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         sprite = GetComponent<SpriteRenderer>();
         col = GetComponent<CapsuleCollider2D>();
+        spawnPoint = transform.position;
 
         standingColliderBounds = col.size;
         areaLowerLeft = Vector2.one;
@@ -139,6 +141,14 @@ public class CharController : MonoBehaviour
             col.size = standingColliderBounds;
         }
     }
+
+    public void Respawn() {
+        Debug.Log('r');
+        transform.position = spawnPoint;
+        rb.velocity = Vector3.zero;
+    }
+
+    
 
 
 
