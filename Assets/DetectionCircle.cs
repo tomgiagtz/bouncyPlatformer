@@ -5,10 +5,11 @@ using UnityEngine;
 public class DetectionCircle: MonoBehaviour
 {
     // Start is called before the first frame update
-    EnemyController enemyController;
+    public EnemyController enemyController;
     void Start()
     {
-        enemyController = GetComponent<EnemyController>();
+        
+        Debug.Log(enemyController);
     }
 
     // Update is called once per frame

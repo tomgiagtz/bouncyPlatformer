@@ -143,7 +143,6 @@ public class CharController : MonoBehaviour
     }
 
     public void Respawn() {
-        Debug.Log('r');
         transform.position = spawnPoint;
         rb.velocity = Vector3.zero;
     }
