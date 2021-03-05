@@ -8,6 +8,10 @@ public class CharController : MonoBehaviour
     Rigidbody2D rb;
     SpriteRenderer sprite;
     CapsuleCollider2D col;
+
+    AudioSource audio;
+    public AudioClip hitSound, throwSound;
+
     public float movementX, velocityY;
     public float maxHorizSpeed = 20f;
     public float movementForce = 5f;
@@ -20,12 +24,13 @@ public class CharController : MonoBehaviour
 
     Vector2 areaTopRight;
     Vector2 areaLowerLeft;
-    
+
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         sprite = GetComponent<SpriteRenderer>();
         col = GetComponent<CapsuleCollider2D>();
+        audio = GetComponent<AudioSource>();
         spawnPoint = transform.position;
 
         standingColliderBounds = col.size;
@@ -46,7 +51,8 @@ public class CharController : MonoBehaviour
 
         //movement force
 
-        if (rb.velocity.x < maxHorizSpeed && !isSliding) {
+        if (rb.velocity.x < maxHorizSpeed && !isSliding)
+        {
             rb.AddForce(new Vector2(movementX, 0) * movementForce);
         }
         velocityY = rb.velocity.normalized.y;
@@ -54,21 +60,23 @@ public class CharController : MonoBehaviour
         CounterMovement();
     }
 
-    void GroundCheck() {
+    void GroundCheck()
+    {
         //bottom left of the character sprite is the top right of the overlap area
         Vector2 bottomLeft = new Vector2(transform.position.x - 0.49f * sprite.bounds.size.x, transform.position.y - 0.5f * sprite.bounds.size.y);
         //get bottom right of character but subtract more on the y to get it below the feet
         Vector2 areaLowerRight = new Vector2(transform.position.x + 0.49f * sprite.bounds.size.x, transform.position.y - 0.58f * sprite.bounds.size.y);
         isGrounded = Physics2D.OverlapArea(bottomLeft, areaLowerRight, groundLayers);
     }
-    
-    void FrontCheck() {
+
+    void FrontCheck()
+    {
         //bottom left of the character sprite is the top right of the overlap area
-        areaTopRight = facingLeft ? 
+        areaTopRight = facingLeft ?
         new Vector2(transform.position.x - 0.52f * sprite.bounds.size.x, transform.position.y + 0.5f * sprite.bounds.size.y) :
         new Vector2(transform.position.x + 0.52f * sprite.bounds.size.x, transform.position.y + 0.5f * sprite.bounds.size.y);
         //get bottom left of character but subtract more on the y to get it infront of the character
-        areaLowerLeft = facingLeft ? 
+        areaLowerLeft = facingLeft ?
         new Vector2(transform.position.x - 0.49f * sprite.bounds.size.x, transform.position.y - 0.4f * sprite.bounds.size.y) :
         new Vector2(transform.position.x + 0.49f * sprite.bounds.size.x, transform.position.y - 0.4f * sprite.bounds.size.y);
         isFrontTouching = Physics2D.OverlapArea(areaTopRight, areaLowerLeft, frontLayers);
@@ -77,77 +85,99 @@ public class CharController : MonoBehaviour
 
     float counterXVelocity;
     public float counterMovementFactor = 4f;
-    void CounterMovement() {
-        if (movementX == 0 && isGrounded && !isSliding) {
+    void CounterMovement()
+    {
+        if (movementX == 0 && isGrounded && !isSliding)
+        {
             counterXVelocity = -rb.velocity.x;
             rb.AddForce(new Vector2(counterXVelocity, 0.1f) * counterMovementFactor * movementForce);
         }
     }
 
-    void HandleFlip() {
+    void HandleFlip()
+    {
         sprite.flipX = facingLeft;
     }
 
-    void HandleJump() {
-        if (willJump) {
+    void HandleJump()
+    {
+        if (willJump)
+        {
             willJump = false;
             rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
         }
     }
 
-    void OnMove(InputValue movementValue) {
+    void OnMove(InputValue movementValue)
+    {
         Vector2 movementVector = movementValue.Get<Vector2>();
         movementX = movementVector.normalized.x;
         // velocityY = movementVector.y;
-        if (movementX == 0) {
+        if (movementX == 0)
+        {
             isSliding = false;
             return;
         }
         bool lastDirection = facingLeft;
-        if (movementX > 0) {
+        if (movementX > 0)
+        {
             facingLeft = false;
-        } else {
+        }
+        else
+        {
             facingLeft = true;
         }
 
-        if (lastDirection != facingLeft) {
+        if (lastDirection != facingLeft)
+        {
             isSliding = false;
         }
     }
 
-    void OnJump() {
-        if (isGrounded && !isSliding) {
-        Debug.Log("jump");
+    void OnJump()
+    {
+        if (isGrounded && !isSliding)
+        {
+            Debug.Log("jump");
             willJump = true;
         }
     }
 
 
     float minSlideSpeed;
-    void OnSlide() {
-        if (isGrounded && !isSliding) {
+    void OnSlide()
+    {
+        if (isGrounded && !isSliding)
+        {
             isSliding = true;
-        } else {
+        }
+        else
+        {
             isSliding = false;
         }
         Debug.Log("Sliding " + isSliding);
     }
     private Vector2 standingColliderBounds;
     public Vector2 slidingColliderBounds;
-    void SlideColliderUpdate() {
-        if (isSliding) {
+    void SlideColliderUpdate()
+    {
+        if (isSliding)
+        {
             col.size = slidingColliderBounds;
-        } else {
+        }
+        else
+        {
             col.size = standingColliderBounds;
         }
     }
 
-    public void Respawn() {
+    public void Respawn()
+    {
         transform.position = spawnPoint;
         rb.velocity = Vector3.zero;
     }
 
-    
+
 
 
 
