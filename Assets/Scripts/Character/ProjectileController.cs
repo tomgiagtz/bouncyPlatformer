@@ -14,6 +14,7 @@ public class ProjectileController : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D other) {
         if (other.gameObject.tag == "Enemy") {
             Debug.Log("Enemy");
+            Destroy(other.gameObject);
             Destroy(gameObject);
         } else {
             Destroy(gameObject);

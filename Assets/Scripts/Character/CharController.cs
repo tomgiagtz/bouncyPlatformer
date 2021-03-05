@@ -10,7 +10,7 @@ public class CharController : MonoBehaviour
     CapsuleCollider2D col;
 
     AudioSource audio;
-    public AudioClip hitSound, throwSound;
+    public AudioClip hitSound;
 
     public float movementX, velocityY;
     public float maxHorizSpeed = 20f;
@@ -173,6 +173,14 @@ public class CharController : MonoBehaviour
 
     public void Respawn()
     {
+        StartCoroutine(KillAndRespawn());
+    }
+
+    IEnumerator KillAndRespawn()
+    {
+        audio.clip = hitSound;
+        audio.Play();
+        yield return new WaitForSeconds(audio.clip.length);
         transform.position = spawnPoint;
         rb.velocity = Vector3.zero;
     }

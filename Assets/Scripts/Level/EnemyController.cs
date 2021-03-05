@@ -91,4 +91,10 @@ public class EnemyController : MonoBehaviour
         yield return new WaitForSeconds(.2f);
         canFlip = true;
     }
+
+    private void OnCollisionEnter2D(Collision2D other) {
+        if (other.gameObject.tag == "Player") {
+            other.gameObject.GetComponent<CharController>().Respawn();
+        }
+    }
 }

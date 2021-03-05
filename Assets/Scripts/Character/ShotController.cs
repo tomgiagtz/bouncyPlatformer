@@ -4,11 +4,14 @@ using UnityEngine;
 
 public class ShotController : MonoBehaviour
 {
+    public AudioClip throwSound;
     public GameObject projectile;
     public Transform firePointRight, firePointLeft;
     private CharController charContr;
+    private AudioSource audio;
     private void Start() {
         charContr = GetComponent<CharController>();
+        audio = GetComponent<AudioSource>();
     }
     void OnFire() {
         Debug.Log("fire");
@@ -21,6 +24,8 @@ public class ShotController : MonoBehaviour
     
 
     void Fire(Transform firePoint) {
+        audio.clip = throwSound;
+        audio.Play();
         Instantiate(projectile, firePoint);
     }
 }
