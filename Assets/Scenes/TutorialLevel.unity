@@ -2214,8 +2214,8 @@ Canvas:
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 25
-  m_SortingLayerID: 0
-  m_SortingOrder: -1
+  m_SortingLayerID: 201547081
+  m_SortingOrder: 10
   m_TargetDisplay: 0
 --- !u!1 &781457554
 GameObject:
@@ -3569,7 +3569,7 @@ GameObject:
   - component: {fileID: 1382860922}
   m_Layer: 0
   m_Name: Robot
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3656,6 +3656,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 2113228033}
+  - {fileID: 1920855471}
+  - {fileID: 1757679273}
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -3695,7 +3697,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!114 &1382860922
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3708,9 +3710,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 64f251d10a82d28458e69dc113350434, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currSpeed: 0
-  walkSpeed: 0
-  runSpeed: 0
+  curState: 0
+  walkRunCurrSpeed: {x: 40, y: 80, z: 60}
+  flipChecks:
+  - {fileID: 1920855471}
+  - {fileID: 1757679273}
+  checkDistance: 0.2
+  attackDistance: 1
+  isGround:
+    serializedVersion: 2
+    m_Bits: 64
 --- !u!1 &1424503481
 GameObject:
   m_ObjectHideFlags: 0
@@ -3985,6 +3994,66 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1615126480}
   m_CullTransparentMesh: 1
+--- !u!1 &1757679272
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1757679273}
+  m_Layer: 0
+  m_Name: flipCheckRight
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1757679273
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1757679272}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1.5, y: -1.28, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1382860919}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1920855470
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1920855471}
+  m_Layer: 0
+  m_Name: flipCheckLeft
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1920855471
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1920855470}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -1.5, y: -1.28, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1382860919}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2113228032
 GameObject:
   m_ObjectHideFlags: 0
@@ -3994,10 +4063,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2113228033}
-  - component: {fileID: 2113228035}
   - component: {fileID: 2113228034}
+  - component: {fileID: 2113228035}
   m_Layer: 0
-  m_Name: GameObject
+  m_Name: DetectionCircle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4030,19 +4099,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyController: {fileID: 1382860922}
---- !u!135 &2113228035
-SphereCollider:
+--- !u!58 &2113228035
+CircleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2113228032}
+  m_Enabled: 1
+  m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 1
-  m_Enabled: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 5
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1001 &113076502248262163
 PrefabInstance:
   m_ObjectHideFlags: 0

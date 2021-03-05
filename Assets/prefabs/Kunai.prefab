@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 8977838204887552849}
   - component: {fileID: 851531790704083678}
   - component: {fileID: 782779370802451727}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Kunai
   m_TagString: Untagged
   m_Icon: {fileID: 0}
