@@ -4145,6 +4145,10 @@ PrefabInstance:
       propertyPath: finishLevelUI
       value: 
       objectReference: {fileID: 2143983580}
+    - target: {fileID: 4068541310108834537, guid: 2391b2d8376adc04c89749a8642a2308, type: 3}
+      propertyPath: nextLevelSceneID
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4068541310108834541, guid: 2391b2d8376adc04c89749a8642a2308, type: 3}
       propertyPath: m_Name
       value: ExitLevel
