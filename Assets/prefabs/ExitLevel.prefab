@@ -570,7 +570,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: -1
   m_Sprite: {fileID: 4295066486619081494, guid: 11fcecc0c607aee4b9a6c0e70121759d, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -621,5 +621,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   finishLevelUI: {fileID: 0}
-  nextLevelSceneID: 1
+  nextLevelSceneID: 2
   waitTimer: 5
